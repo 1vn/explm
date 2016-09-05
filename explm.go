@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
 	"log"
 	"os"
@@ -15,13 +14,11 @@ func main() {
 		os.Exit(1)
 	}
 
-	meme_name := os.Args[1]
+	memeName := os.Args[1]
 
-	var url bytes.Buffer
-	url.WriteString("http://knowyourmeme.com/memes/")
-	url.WriteString(meme_name)
+	url := fmt.Sprintf("http://knowyourmeme.com/memes/%s", memeName)
 
-	doc, err := goquery.NewDocument(url.String())
+	doc, err := goquery.NewDocument(url)
 	if err != nil {
 		log.Fatalln("Error, unable to parse webpage: ", err)
 	}
