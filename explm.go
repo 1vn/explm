@@ -3,12 +3,10 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"io"
 	"log"
 	"os"
 
 	"github.com/PuerkitoBio/goquery"
-	"golang.org/x/net/html"
 )
 
 func main() {
@@ -17,10 +15,8 @@ func main() {
 		os.Exit(1)
 	}
 
-	get_meme(os.Args[1])
-}
+	meme_name := os.Args[1]
 
-func get_meme(meme_name string) {
 	var url bytes.Buffer
 	url.WriteString("http://knowyourmeme.com/memes/")
 	url.WriteString(meme_name)
@@ -31,17 +27,4 @@ func get_meme(meme_name string) {
 	}
 
 	log.Println(doc.Find("h1").First().Find("a").Text())
-}
-
-// http://schier.co/blog/2015/04/26/a-simple-web-scraper-in-go.html
-
-func parse_html(body io.Reader) {
-	ttz := html.NewTokenizer(body)
-	for {
-		tt := ttz.Next()
-		if tt == html.ErrorToken {
-			break
-		}
-		// consume the token
-	}
 }
